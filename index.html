@@ -74,6 +74,30 @@
             box-shadow: 0 5px #666;
             transform: translateY(4px);
         }
+        /* Media query for smaller screens */
+        @media screen and (max-width: 768px) {
+            h1, h2, h3 {
+                font-size: 1.2em; /* Reduce heading size for smaller screens */
+                margin: 5px;
+            }
+
+            input, button {
+                width: 90%; /* Make input and button full width */
+                font-size: 1em;
+            }
+
+            img {
+                max-width: 90%; /* Keep images smaller for mobile */
+            }
+
+            .top-banner a {
+                font-size: 1em; /* Adjust banner text size */
+            }
+
+            body {
+                padding-top: 70px; /* Adjust padding for the fixed banner height */
+            }
+        }
     </style>
 </head>
 <body>
