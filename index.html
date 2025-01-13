@@ -87,6 +87,8 @@
     <input type="text" id="imageUrl" placeholder="Enter the image URL" />
     <button onclick="showImage()">Show Image</button>
     <br>
+    <input type="file" id="imageUpload" accept="image/*" />
+    <div id="uploadImageContainer"></div>
     <h1>Reserve Your Time</h1>
     <button class="button" onclick="searchRestaurants()">Find Restaurants Near Me</button>
     <button class="button" onclick="searchMovies()">Find Movies Near Me</button>
@@ -117,7 +119,7 @@
             window.open(url, '_blank');
         }
         document.getElementById('imageUpload').addEventListener('change', function(event) {
-            const imageContainer = document.getElementById('imageContainer');
+            const imageContainer = document.getElementById('uploadImageContainer');
             imageContainer.innerHTML = ''; // Clear previous image if any
 
             const file = event.target.files[0];
