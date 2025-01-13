@@ -46,6 +46,27 @@
             color: #fff;
             color: rgba(255, 255, 255, .8);
         }
+        .button {
+            display: inline-block;
+            padding: 15px 25px;
+            font-size: 24px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 9px #999;
+            margin: 20px;
+        }
+        .button:hover {background-color: #3e8e41}
+        .button:active {
+            background-color: #3e8e41;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
     </style>
 </head>
 <body>
@@ -65,6 +86,10 @@
     <br>
     <input type="text" id="imageUrl" placeholder="Enter the image URL" />
     <button onclick="showImage()">Show Image</button>
+    <br>
+    <h1>Reserve Your Time</h1>
+    <button class="button" onclick="searchRestaurants()">Find Restaurants Near Me</button>
+    <button class="button" onclick="searchMovies()">Find Movies Near Me</button>
     <div id="imageContainer"></div>
 
     <script>
@@ -81,6 +106,15 @@
             } else {
                 alert('Please enter a valid image URL.');
             }
+        }
+        function searchRestaurants() {
+            const url = "https://www.google.com/search?q=restaurants+near+me";
+            window.open(url, '_blank');
+        }
+
+        function searchMovies() {
+            const url = "https://www.google.com/search?q=movies+near+me";
+            window.open(url, '_blank');
         }
     </script>
     <iframe width="560" height="315" src="https://www.youtube.com/embed/oYsadFe6iL4?si=VH_ddsJqYrZUIQhR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
