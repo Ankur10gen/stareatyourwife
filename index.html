@@ -48,11 +48,12 @@
             width: 100%; /* Ensure it spans the full width of the page */
             padding: 15px 0; /* Add padding to make it visible */
             text-align: center; /* Center-align the text */
-            background-color: #ea4c4c; /* Keep the red background */
+            background-color: #f7f7f7; /* Keep the red background */
             position: fixed; /* Make it stick to the top */
             top: 0; /* Position at the top of the page */
             z-index: 1000; /* Ensure it stays above other elements */
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add some shadow for better visibility */
+            flex-wrap: wrap;
         }
         .top-banner a {
             width: 100%;
@@ -60,6 +61,13 @@
             text-decoration: none;
             color: #fff;
             color: rgba(255, 255, 255, .8);
+        }
+        .banner-link {
+            font-size: 16px;
+            color: #333;
+            text-decoration: none;
+            flex-grow: 1; /* Allow the link to take available space */
+            text-align: left;
         }
         .instagram-link {
             display: flex;
