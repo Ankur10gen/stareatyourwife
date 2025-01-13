@@ -80,7 +80,7 @@
     <h3>And Making The World A Better Place</h3>
     <br>
     <h2>Give Us Some Love ❤️ & Share With Friends</h2>
-    <h2>But First Put Your Partner's Image URL & Hit The Button</h2>
+    <h2>But First Put Your Partner's Image URL or Just Upload It & Hit The Button</h2>
     <br>
     <h3>Happy Staring!</h3>
     <br>
@@ -116,7 +116,23 @@
             const url = "https://www.google.com/search?q=movies+near+me";
             window.open(url, '_blank');
         }
+        document.getElementById('imageUpload').addEventListener('change', function(event) {
+            const imageContainer = document.getElementById('imageContainer');
+            imageContainer.innerHTML = ''; // Clear previous image if any
+
+            const file = event.target.files[0];
+            if (file) {
+                const img = document.createElement('img');
+                img.src = URL.createObjectURL(file);
+                img.alt = "Uploaded Image";
+                imageContainer.appendChild(img);
+            } else {
+                alert('No file selected or file type is not supported.');
+            }
+        });
     </script>
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/oYsadFe6iL4?si=VH_ddsJqYrZUIQhR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <iframe width="560" height="500" src="https://www.youtube.com/embed/oYsadFe6iL4?si=VH_ddsJqYrZUIQhR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <h4><i>Note: All code is running on your browser & doesn't store any data or images</i></h4>
+    <h4><i>You can check, contribute or fork the <a href="url">code on github here</a></i></h4>
 </body>
 </html>
