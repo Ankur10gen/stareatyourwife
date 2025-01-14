@@ -4,110 +4,117 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stare At Your Wife</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         html {
-            height: auto; /* Allow the page height to grow with content */
-            overflow-y: auto; /* Enable vertical scrolling */
-            margin: 0; /* Remove default margin to avoid layout issues */
-        }   
+            height: auto;
+            overflow-y: auto;
+            margin: 0;
+        }
         body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #ffffff;
+            color: #202124;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            height: auto;
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            top:0;
-            overflow-y: auto;
-            padding-top: 60px
-        }
-        h1 {
-            color: #333;
+            text-align: center;
         }
         h1, h2, h3 {
-            text-align: center; /* Ensures text is centrally aligned */
-            margin: 10px 0; /* Adds vertical spacing */
-            word-wrap: break-word; /* Optional: Break long words onto the next line if necessary */
-        }   
+            font-weight: 500;
+            margin: 10px 0;
+        }
+        h1 {
+            font-size: 2em;
+        }
         input, button {
             margin: 10px;
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            outline: none;
+        }
+        input:focus {
+            border-color: #4285f4;
+            box-shadow: 0 1px 6px rgba(66, 133, 244, 0.3);
+        }
+        button {
+            background-color: #4285f4;
+            color: #fff;
+            cursor: pointer;
+            border: none;
+        }
+        button:hover {
+            background-color: #357ae8;
+        }
+        button:active {
+            background-color: #2a65c7;
         }
         img {
             max-width: 80%;
-            max-height: 80vh;
+            max-height: 70vh;
             margin-top: 20px;
-            border: 2px solid #333;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            object-fit: contain;
         }
         .top-banner {
-            width: 100%; /* Ensure it spans the full width of the page */
-            padding: 15px 0; /* Add padding to make it visible */
-            text-align: center; /* Center-align the text */
-            background-color: #ea4c4c; /* Keep the red background */
-            position: fixed; /* Make it stick to the top */
-            top: 0; /* Position at the top of the page */
-            z-index: 1000; /* Ensure it stays above other elements */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add some shadow for better visibility */
+            width: 100%;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #e0e0e0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
         }
         .top-banner a {
+            text-decoration: none;
+            color: #4285f4;
+            font-size: 1em;
+        }
+        .top-banner a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            margin-top: 100px;
+            max-width: 800px;
             width: 100%;
-            padding: 15px 0;
-            text-decoration: none;
-            color: #fff;
-            color: rgba(255, 255, 255, .8);
         }
-        .button {
-            display: inline-block;
-            padding: 15px 25px;
-            font-size: 24px;
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-            outline: none;
-            color: #fff;
-            background-color: #4CAF50;
-            border: none;
-            border-radius: 15px;
-            box-shadow: 0 9px #999;
-            margin: 20px;
+        .challenge-section {
+            background-color: #f1f8ff;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px solid #4285f4;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        .button:hover {background-color: #3e8e41}
-        .button:active {
-            background-color: #3e8e41;
-            box-shadow: 0 5px #666;
-            transform: translateY(4px);
+        .success-message {
+            display: none;
+            font-size: 1.2em;
+            color: #4CAF50;
+            margin-top: 10px;
         }
-        .imageContainer {
+        iframe {
+            width: 80%;
+            max-width: 560px;
+            height: 315px;
+            margin: 20px 0;
+        }
+        #imageContainer, #uploadImageContainer {
+            margin-top: 20px;
             display: flex;
-            flex-direction: column; /* Stack input and button vertically */
-            align-items: center;    /* Center-align items horizontally */
-            margin: 20px 0;         /* Add spacing */
+            flex-direction: column;
+            align-items: center;
         }
-
-        /* Media query for smaller screens */
         @media screen and (max-width: 768px) {
-            h1, h2, h3 {
-                font-size: 1.2em; /* Reduce heading size for smaller screens */
-                margin: 5px;
+            h1 {
+                font-size: 1.5em;
             }
-
             input, button {
-                width: 90%; /* Make input and button full width */
-                font-size: 1em;
-            }
-
-            img {
-                max-width: 90%; /* Keep images smaller for mobile */
-            }
-
-            .top-banner a {
-                font-size: 1em; /* Adjust banner text size */
-            }
-
-            body {
-                padding-top: 70px; /* Adjust padding for the fixed banner height */
+                width: 90%;
             }
         }
     </style>
@@ -116,44 +123,44 @@
     <div class="top-banner">
         <a href="StareAtYourWife.com" target="_blank">Thousands Have Stared At Their Partners On This Website</a>
     </div>
-    <h1>This Valentine 
-    <a href="https://twitter.com/intent/tweet?text=This%20Valentine%E2%80%99s%20Day%2C%20spend%20time%20that%20truly%20matters.%20Special%20offers%20await%20on%20StareAtYourWife.com.%20%23ValentinesDay%20%23StareAtYourWife" 
-   target="_blank" 
-   rel="noopener noreferrer">
-   #StareAtYourWife
-    </a></h1>
-
-    <h2>No Matter If You're In The Office Or At Home</h2>
-    <h2>Now You Have The Freedom To Stare At Your Partner For Hours</h2>
-    <h3>At StareAtYourWife.com, We Take Pride In Connecting People</h3>
-    <h3>And Making The World A Better Place</h3>
-    <br>
-    <h2>Give Us Some Love ❤️ & Share With Friends</h2>
-    <h2>But First Put Your Partner's Image URL or Just Choose It From Your Device & Hit The Button</h2>
-    <br>
-    <h3>Happy Staring!</h3>
-    <br>
-    <input type="text" id="imageUrl" placeholder="Enter the image URL" />
-    <button onclick="showImage()">Show Image</button>
-    <br>
-    <input type="file" id="imageUpload" accept="image/*" />
-    <div id="uploadImageContainer"></div>
-    <h2>Stared Enough? Now take them out for a movie or some delicious meal</h1>
-    <h1>Reserve Your Time</h1>
-    <button class="button" onclick="searchRestaurants()">Find Restaurants Near Me</button>
-    <button class="button" onclick="searchMovies()">Find Movies Near Me</button>
-    <div id="imageContainer"></div>
-
+    <div class="container">
+        <h1>This Valentine
+            <a href="https://twitter.com/intent/tweet?text=This%20Valentine%E2%80%99s%20Day%2C%20spend%20time%20that%20truly%20matters.%20Special%20offers%20await%20on%20StareAtYourWife.com.%20%23ValentinesDay%20%23StareAtYourWife" target="_blank" rel="noopener noreferrer">
+                #StareAtYourWife
+            </a>
+        </h1>
+        <h2>No Matter If You're In The Office Or At Home</h2>
+        <h3>Now You Have The Freedom To Stare At Your Partner For Hours</h3>
+        <h3>At StareAtYourWife.com, We Take Pride In Connecting People</h3>
+        <h3>And Making The World A Better Place</h3>
+        <h2>Give Us Some Love ❤️ & Share With Friends</h2>
+        <input type="text" id="imageUrl" placeholder="Enter the image URL">
+        <button onclick="showImage()">Show Image</button>
+        <input type="file" id="imageUpload" accept="image/*">
+        <div id="imageContainer"></div>
+        <div id="uploadImageContainer"></div>
+        <br>
+        <div class="challenge-section">
+            <h3>Take The Stare Challenge 🫣</h3>
+            <div id="challengeInputs">
+                <input type="email" id="emailInput" placeholder="Enter your email">
+                <button onclick="acceptChallenge()">Accept Challenge</button>
+            </div>
+            <div id="successMessage" class="success-message">Challenge accepted! Check your email for details.</div>
+        </div>
+        <button onclick="searchRestaurants()">Find Restaurants Near Me</button>
+        <button onclick="searchMovies()">Find Movies Near Me</button>
+    </div>
     <script>
         function showImage() {
             const imageUrl = document.getElementById('imageUrl').value;
             const imageContainer = document.getElementById('imageContainer');
-            imageContainer.innerHTML = ''; // Clear previous image if any
+            imageContainer.innerHTML = '';
 
             if (imageUrl) {
                 const img = document.createElement('img');
                 img.src = imageUrl;
-                img.alt = "Wife's Photo";
+                img.alt = "Partner's Photo";
                 imageContainer.appendChild(img);
             } else {
                 alert('Please enter a valid image URL.');
@@ -163,14 +170,40 @@
             const url = "https://www.google.com/search?q=restaurants+near+me";
             window.open(url, '_blank');
         }
-
         function searchMovies() {
             const url = "https://www.google.com/search?q=movies+near+me";
             window.open(url, '_blank');
         }
+        function acceptChallenge() {
+            const emailInput = document.getElementById('emailInput');
+            const challengeInputs = document.getElementById('challengeInputs');
+            const successMessage = document.getElementById('successMessage');
+            const email = emailInput.value;
+            if (email && email.includes('@')) {
+                fetch('https://script.google.com/macros/s/AKfycbw3FwDQZRADv1gGBRn2zNE22_epKmsnQYQCR_E5rrAcN443tmuz4UOIBH5-JhdTuItDvA/exec', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `email=${encodeURIComponent(email)}`,
+                })
+                .then(response => response.text())
+                .then(data => {
+                    successMessage.style.display = 'block';
+                    successMessage.textContent = data;
+                    challengeInputs.style.display = 'none';
+                    emailInput.value = '';
+                })
+                .catch(error => {
+                    alert('An error occurred: ' + error);
+                });
+            } else {
+                alert('Please enter a valid email address.');
+            }
+        }
         document.getElementById('imageUpload').addEventListener('change', function(event) {
             const imageContainer = document.getElementById('uploadImageContainer');
-            imageContainer.innerHTML = ''; // Clear previous image if any
+            imageContainer.innerHTML = '';
 
             const file = event.target.files[0];
             if (file) {
@@ -183,7 +216,7 @@
             }
         });
     </script>
-    <iframe width="560" height="500" src="https://www.youtube.com/embed/oYsadFe6iL4?si=VH_ddsJqYrZUIQhR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <iframe src="https://www.youtube.com/embed/oYsadFe6iL4?si=VH_ddsJqYrZUIQhR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     <h4><i>Note: All code is running on your browser & doesn't store any data or images</i></h4>
     <h4><i>You can check, contribute or fork the <a href="https://github.com/Ankur10gen/stareatyourwife">code on github here</a></i></h4>
 </body>
