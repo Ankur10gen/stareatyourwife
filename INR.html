@@ -7,10 +7,11 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      text-align: center;
       background-color: #f9f9f9;
+      overflow: hidden;
       margin: 0;
       padding: 0;
+      text-align: center;
     }
     .container {
       margin-top: 10%;
@@ -23,11 +24,36 @@
       font-size: 4rem;
       font-weight: bold;
       color: #E4405F;
+      margin-bottom: 20px;
     }
     .tagline {
       font-size: 1.2rem;
       margin-top: 20px;
       color: #666;
+    }
+    .falling-rupee {
+      position: absolute;
+      top: -10%;
+      font-size: 3rem;
+      color: #E4405F;
+      animation: fall 5s linear infinite;
+    }
+    @keyframes fall {
+      0% {
+        top: -10%;
+        left: calc(50% - 1rem);
+        transform: rotate(0deg) scale(1);
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.8;
+      }
+      100% {
+        top: 110%;
+        left: calc(50% + 5rem); /* Slightly drifting */
+        transform: rotate(360deg) scale(0.8);
+        opacity: 0;
+      }
     }
     .footer {
       margin-top: 40px;
@@ -44,6 +70,9 @@
     <div class="footer">Exchange rates are updated in real-time.</div>
   </div>
 
+  <!-- Falling Rupee Animation -->
+  <div class="falling-rupee" id="falling-rupee">₹</div>
+
   <script>
     const fetchExchangeRate = async () => {
       try {
@@ -59,6 +88,21 @@
 
     // Fetch the rate on page load
     fetchExchangeRate();
+
+    // Adding more falling symbols dynamically
+    setInterval(() => {
+      const rupee = document.createElement('div');
+      rupee.textContent = '₹';
+      rupee.className = 'falling-rupee';
+      rupee.style.left = Math.random() * 100 + 'vw'; // Random horizontal position
+      rupee.style.animationDuration = Math.random() * 3 + 4 + 's'; // Random speed
+      document.body.appendChild(rupee);
+
+      // Remove rupee after animation ends
+      rupee.addEventListener('animationend', () => {
+        rupee.remove();
+      });
+    }, 1000); // Add a new rupee every second
   </script>
 </body>
 </html>
