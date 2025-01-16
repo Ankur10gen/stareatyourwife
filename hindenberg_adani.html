@@ -79,16 +79,32 @@
         if (rupee.hit || rupee.x >= canvas.width) {
             rupeeSymbols.splice(index, 1);
         }
-    });
-}
+        });
+        }
 
 
-        // Draw Hindenburg logo
+        let hindenburgShakeIntensity = 0; // Initial shake intensity
+
         function drawHindenburg() {
-            if (hindenburg.visible) {
-                ctx.drawImage(hindenburgImg, hindenburg.x, hindenburg.y, hindenburg.width, hindenburg.height);
+            if (hindenburgHitPoints > 0) {
+                // Calculate shake intensity based on remaining hit points
+                hindenburgShakeIntensity = (maxHitPoints - hindenburgHitPoints) * 2;
+
+                // Randomly offset the position of the logo within the shake intensity
+                const offsetX = Math.random() * hindenburgShakeIntensity - hindenburgShakeIntensity / 2;
+                const offsetY = Math.random() * hindenburgShakeIntensity - hindenburgShakeIntensity / 2;
+
+                // Draw the Hindenburg logo with shaking effect
+                ctx.drawImage(
+                    hindenburgImg,
+                    hindenburgX + offsetX,
+                    hindenburgY + offsetY,
+                    hindenburgWidth,
+                    hindenburgHeight
+                );
             }
         }
+
 
         // Update Hindenburg state
         function updateHindenburg() {
