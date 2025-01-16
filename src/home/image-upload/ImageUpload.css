@@ -1,0 +1,13 @@
+.image img {
+    max-width: 80%;
+    height: 70vh;
+    /*border: 1px solid #dadce0;*/
+    border-radius: 4px;
+    object-fit: contain;
+}
+
+#imageContainer, #uploadImageContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

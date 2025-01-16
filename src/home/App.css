@@ -3,6 +3,7 @@ html {
     overflow-y: auto;
     margin: 0;
 }
+
 body {
     margin: 0;
     font-family: 'Roboto', sans-serif;
@@ -13,13 +14,16 @@ body {
     align-items: center;
     text-align: center;
 }
+
 h1, h2, h3 {
     font-weight: 500;
     margin: 10px 0;
 }
+
 h1 {
     font-size: 2em;
 }
+
 input, button {
     margin: 10px;
     padding: 10px;
@@ -28,84 +32,174 @@ input, button {
     border-radius: 4px;
     outline: none;
 }
+
 input:focus {
     border-color: #4285f4;
     box-shadow: 0 1px 6px rgba(66, 133, 244, 0.3);
 }
+
 button {
     background-color: #4285f4;
     color: #fff;
     cursor: pointer;
     border: none;
 }
+
 button:hover {
     background-color: #357ae8;
 }
+
 button:active {
     background-color: #2a65c7;
 }
-img {
-    max-width: 80%;
-    max-height: 70vh;
-    margin-top: 20px;
-    border: 1px solid #dadce0;
-    border-radius: 4px;
-    object-fit: contain;
+
+.main-container {
+    margin: 16px;
 }
-.top-banner {
-    width: 100%;
-    padding: 15px;
-    background-color: #f8f9fa;
-    border-bottom: 1px solid #e0e0e0;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-}
-.top-banner a {
-    text-decoration: none;
-    color: #4285f4;
-    font-size: 1em;
-}
-.top-banner a:hover {
-    text-decoration: underline;
-}
+
 .container {
     margin-top: 100px;
     max-width: 800px;
     width: 100%;
 }
-.challenge-section {
-    background-color: #f1f8ff;
-    padding: 20px;
-    margin: 20px 0;
-    border: 2px solid #4285f4;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-.success-message {
-    display: none;
-    font-size: 1.2em;
-    color: #4CAF50;
-    margin-top: 10px;
-}
+
 iframe {
     width: 80%;
     max-width: 560px;
     height: 315px;
     margin: 20px 0;
 }
-#imageContainer, #uploadImageContainer {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+
 @media screen and (max-width: 768px) {
     h1 {
         font-size: 1.5em;
     }
-    input, button {
-        width: 90%;
+
+    input {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    button {
+        margin: 8px;
+    }
+
+    iframe {
+        width: 100%;
     }
 }
+
+.text-section {
+    background-color: #f9f9f9; /* Light background for emphasis */
+    padding: 20px 12px; /* Add spacing around the text */
+    margin: 20px auto; /* Center and add vertical spacing */
+    border-radius: 8px; /* Rounded corners for a modern look */
+    max-width: 800px; /* Restrict width for better readability */
+    text-align: center; /* Center-align the text */
+}
+
+.text-section h2, .text-section h3 {
+    margin: 10px 0; /* Add consistent spacing between lines */
+}
+
+.text-section h2 {
+    font-size: 1.8em; /* Slightly larger font size for h2 */
+    color: #333; /* Darker text for better visibility */
+    font-weight: bold; /* Emphasize h2 */
+}
+
+.text-section h3 {
+    font-size: 1.4em; /* Slightly smaller font size for h3 */
+    color: #555; /* Lighter text for differentiation */
+    line-height: 1.6; /* Increase line height for readability */
+}
+
+.text-section h4 {
+    font-size: 1.2em; /* Slightly smaller font size for h3 */
+    color: #555; /* Lighter text for differentiation */
+    line-height: 1.6; /* Increase line height for readability */
+    font-weight: bold;
+}
+
+.twitter-hashtag {
+    color: #1da1f2; /* Twitter blue color */
+    font-weight: bold; /* Make it stand out */
+    text-decoration: none; /* Remove underline */
+    transition: color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.twitter-hashtag:hover {
+    text-decoration: underline; /* Add underline on hover */
+    color: #0c85d0; /* Slightly darker shade of blue */
+}
+
+.twitter-tweet-container {
+    display: flex;
+    justify-content: center;
+}
+
+.share-section {
+    margin-top: 8px;
+    text-align: center;
+}
+
+.instagram-share {
+    background-color: #e4405f; /* Instagram pink color */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.instagram-share:hover {
+    background-color: #cc3364; /* Slightly darker shade on hover */
+}
+
+.share-section {
+    display: flex;
+    margin: 12px 20px;
+    text-align: center;
+    justify-content: center;
+}
+
+.share-section h3 {
+    font-size: 1em;
+    margin-bottom: 10px;
+    color: #202124;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.icon {
+    font-size: 2em;
+    cursor: pointer;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.icon:hover {
+    transform: scale(1.2);
+}
+
+.icon.instagram {
+    color: #e4405f; /* Instagram color */
+}
+
+.icon.facebook {
+    color: #3b5998; /* Facebook color */
+}
+
+.icon.twitter {
+    color: #1da1f2; /* Twitter color */
+}
+
+
+
+

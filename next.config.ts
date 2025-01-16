@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
     output: 'export',
-    basePath: '/stare-at-your-wife',
+    basePath: '',
     images: {
         unoptimized: true, // GitHub Pages does not support Next.js optimized images
     },
