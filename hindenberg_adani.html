@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rupee vs Hindenburg</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        canvas {
+            display: block;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px 0;
+            font-size: 2em;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        header span {
+            color: #FFD700;
+            font-weight: bold;
+        }	    
+    </style>
+</head>
+<body>
+    <header>
+        💥 <span>Rupees</span> vs. <span>Hindenburg</span>: The Ultimate Showdown 💸
+    </header>	
+    <canvas id="animationCanvas"></canvas>
+    <script>
+        const canvas = document.getElementById("animationCanvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Load the Hindenburg logo
+        const hindenburgImg = new Image();
+        hindenburgImg.src = "https://upload.wikimedia.org/wikipedia/commons/b/b3/Hindenburg_Research_logo.svg";
+
+        // Rupee symbol properties
+        const rupeeSymbols = [];
+        const rupeeSpeed = 5;
+        const rupeeInterval = 200; // ms
+
+        // Hindenburg logo properties
+        const hindenburg = {
+            x: canvas.width - 150,
+            y: canvas.height / 2 - 75,
+            width: 150,
+            height: 150,
+            hitPoints: 20,
+            visible: true
+        };
+
+        // Generate rupee symbols
+        function createRupeeSymbol() {
+            const size = 30;
+            const x = -size;
+            const y = Math.random() * canvas.height;
+            rupeeSymbols.push({ x, y, size });
+        }
+
+        // Draw rupee symbols
+        function drawRupeeSymbols() {
+            ctx.font = "30px Arial";
+            ctx.fillStyle = "green";
+            rupeeSymbols.forEach((rupee) => {
+                ctx.fillText("₹", rupee.x, rupee.y);
+            });
+        }
+
+	function updateRupeeSymbols() {
+	    rupeeSymbols.forEach((rupee) => {
+            rupee.x += rupeeSpeed;
+
+            // Check collision with Hindenburg
+            if (
+            	hindenburg.visible &&
+            	rupee.x + rupee.size > hindenburg.x &&
+            	rupee.y > hindenburg.y &&
+            	rupee.y < hindenburg.y + hindenburg.height
+            ) {
+            	hindenburg.hitPoints--;
+            	rupee.hit = true;
+            }
+    	});
+
+    // Remove off-screen or hit rupees
+    rupeeSymbols.forEach((rupee, index) => {
+        if (rupee.hit || rupee.x >= canvas.width) {
+            rupeeSymbols.splice(index, 1);
+        }
+    });
+}
+
+
+        // Draw Hindenburg logo
+        function drawHindenburg() {
+            if (hindenburg.visible) {
+                ctx.drawImage(hindenburgImg, hindenburg.x, hindenburg.y, hindenburg.width, hindenburg.height);
+            }
+        }
+
+        // Update Hindenburg state
+        function updateHindenburg() {
+            if (hindenburg.hitPoints <= 0) {
+                hindenburg.visible = false;
+            }
+        }
+
+        // Main animation loop
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            drawRupeeSymbols();
+            drawHindenburg();
+
+            updateRupeeSymbols();
+            updateHindenburg();
+
+            requestAnimationFrame(animate);
+        }
+
+        // Start generating rupee symbols
+        setInterval(createRupeeSymbol, rupeeInterval);
+
+        // Start animation after Hindenburg image loads
+        hindenburgImg.onload = () => {
+            animate();
+        };
+
+        hindenburgImg.onerror = () => {
+            console.error("Failed to load Hindenburg logo.");
+        };
+    </script>
+</body>
+</html>
