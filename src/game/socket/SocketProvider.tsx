@@ -9,7 +9,7 @@ interface SocketContextType {
     setGame: (game: Game) => void;
 }
 
-const SocketContext = createContext<SocketContextType|null>(null);
+const SocketContext = createContext<SocketContextType | null>(null);
 
 export const SocketProvider: FC<{ children: ReactNode }> = ({children}) => {
     const [socket, setSocket] = useState<Socket | null>(null);
@@ -23,8 +23,8 @@ export const SocketProvider: FC<{ children: ReactNode }> = ({children}) => {
     });
 
     useEffect(() => {
-        // socketRef.current = io("https://stare-at-your-wife1.ap-south-1.elasticbeanstalk.com");
-        const s = io("http://localhost:8080");
+        const s = io("https://stare-at-your-wife1.ap-south-1.elasticbeanstalk.com");
+        // const s = io("http://localhost:8080");
         setSocket(s);
         return () => {
             s?.disconnect();
