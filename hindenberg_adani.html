@@ -93,16 +93,16 @@
         if (rupee.hit || rupee.x >= canvas.width) {
             rupeeSymbols.splice(index, 1);
         }
-    });
-}
+        });
+        }
 
 
-        // Draw Hindenburg logo
         function drawHindenburg() {
             if (hindenburg.visible) {
                 ctx.drawImage(hindenburgImg, hindenburg.x, hindenburg.y, hindenburg.width, hindenburg.height);
             }
         }
+
 
         // Update Hindenburg state
         function updateHindenburg() {
