@@ -28,15 +28,28 @@
 
 .bubble {
     position: absolute;
-    width: 60px;
-    height: 56px;
-    background-image: url('../../../public/balloon.png'); /* Replace with your image path */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 90px;
+    /*background-image: url('../../../public/balloon.png'); !* Replace with your image path *!*/
     background-size: cover;
     /*background-position: center;*/
     /*border-radius: 50%;*/
-    animation: float 5s ease-in infinite;
+    animation: float 5s ease-out infinite;
     cursor: pointer;
     transform-origin: center;
+}
+
+.balloon {
+    width: 60px;
+    height: 56px;
+    background-image: url('../../../public/balloon.png'); /* Replace with your image path */
+}
+
+.balloon[data-state="burst"] {
+    background-image: url('../../../public/balloon_burst.png'); /* Replace with burst effect image path */
 }
 
 @keyframes float {
@@ -53,7 +66,7 @@
 .bubble[data-state="burst"] {
     animation: none; /* Stops the float animation */
     background-image: url('../../../public/balloon_burst.png'); /* Replace with burst effect image path */
-    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+    transition: transform 0.3s ease-in, opacity 0.3s ease-out;
     transform: scale(1);
     opacity: 1;
 }
@@ -68,7 +81,7 @@
         opacity: 1;
     }
     50% {
-        opacity: .1;
+        opacity: 0;
     }
     100% {
         transform: scale(4);

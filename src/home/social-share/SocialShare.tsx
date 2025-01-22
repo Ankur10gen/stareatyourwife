@@ -5,6 +5,7 @@ import {useSocialShare} from "stare/home/social-share/useSocialShare";
 import {useScreenshot} from "stare/core/hooks/useScreenshot";
 import {useDownload} from "stare/core/hooks/useDownload";
 import {useCopyHashtag} from "stare/core/hooks/useCopy";
+import './SocialShare.css';
 
 enum SocialMedia {
     INSTAGRAM = "instagram",

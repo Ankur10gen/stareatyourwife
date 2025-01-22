@@ -1,0 +1,29 @@
+.give-challenge {
+    animation: marble-bg 10s infinite;
+    background-size: 400% 400%;
+}
+.give-challenge {
+    font-family: "Press Start 2P", cursive; /* Retro game font */
+    padding: 20px;
+    border: 3px solid #ff66cc;
+    border-radius: 20px;
+    text-align: center;
+    background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+    color: #fff;
+}
+
+.give-challenge button {
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    background: linear-gradient(90deg, #6a11cb, #2575fc);
+    color: #fff;
+    transition: transform 0.3s ease-in-out, background 0.3s;
+}
+
+.give-challenge button:hover {
+    background: linear-gradient(90deg, #2575fc, #6a11cb);
+    transform: scale(1.1);
+}

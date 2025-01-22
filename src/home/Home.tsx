@@ -1,10 +1,9 @@
 'use client'
 import React from "react";
-import "./App.css";
-
-import {TopBanner} from "stare/home/views/TopBanner";
+import "../core/App.css";
 import {ChallengeView} from "stare/home/challenge/ChallengeView";
-import {GamingSection} from "stare/home/gaming/GamingSection";
+import {GiveChallenge} from "stare/home/give-challenge/GiveChallenge";
+import {TopBanner} from "stare/home/top-banner/TopBanner";
 
 const Home: React.FC = () => {
     const searchRestaurants = () => window.open("https://www.google.com/search?q=restaurants+near+me", "_blank");
@@ -26,6 +25,7 @@ const Home: React.FC = () => {
                     </a>
                 </h1>
 
+                <GiveChallenge/>
                 <ChallengeView/>
 
                 <div className={'twitter-tweet-container'}>
@@ -45,8 +45,6 @@ const Home: React.FC = () => {
                     <h3>And Making The World A Better Place</h3>
                     <h4>Give Us Some Love ❤️ & Share With Friends</h4>
                 </div>
-
-                <GamingSection/>
 
                 <button onClick={searchRestaurants}>Find Restaurants Near Me</button>
                 <button onClick={searchMovies}>Find Movies Near Me</button>

@@ -1,0 +1,85 @@
+/* Updated CSS for Blue and Pink Theme */
+/*body {*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*    background: linear-gradient(135deg, #000428, #004e92);*/
+/*    height: 100vh;*/
+/*    color: #ffffff;*/
+/*}*/
+
+.stare-challenge-container {
+    font-family: "Press Start 2P", cursive; /* Retro game font */
+    max-width: 500px;
+    margin: 100px auto;
+    padding: 20px;
+    border: 3px solid #ff66cc;
+    border-radius: 20px;
+    text-align: center;
+    background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+    color: #fff;
+    box-shadow: 0 0 50px rgba(255, 102, 204, 0.5);
+}
+
+.step-content {
+    padding: 10px;
+}
+
+.step-content input {
+    display: block;
+    margin: 15px auto;
+    padding: 10px;
+    width: 80%;
+    border: 2px solid #ff66cc;
+    border-radius: 10px;
+    background: #282846;
+    color: #fff;
+    font-size: 16px;
+    outline: none;
+}
+
+.step-content button {
+    margin: 15px;
+    padding: 15px 16px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    background: linear-gradient(90deg, #6a11cb, #2575fc);
+    color: #fff;
+    transition: transform 0.3s ease-in-out, background 0.3s;
+}
+
+.step-content button:hover {
+    background: linear-gradient(90deg, #2575fc, #6a11cb);
+    transform: scale(1.1);
+}
+
+.step-content h2 {
+    font-size: 28px;
+    text-shadow: 2px 2px #000;
+}
+
+.step-content p {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+/* Background animation */
+.stare-challenge-container {
+    animation: marble-bg 10s infinite;
+    background-size: 400% 400%;
+    margin: 16px;
+}
+
+@keyframes marble-bg {
+    0% {
+        background-position: 0 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0 50%;
+    }
+}

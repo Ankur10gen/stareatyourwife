@@ -7,18 +7,6 @@ export const ChallengeView = () => {
 
     const {acceptChallenge, successMsg, loading} = useChallenge();
 
-    //.challenge-section {
-    //     background-color: #f1f8ff;
-    //     padding: 20px;
-    //     margin: 12px 0;
-    //     border: 1px solid #4285f4;
-    //     border-radius: 8px;
-    // }
-    // .success-message {
-    //     font-size: 1.2em;
-    //     color: #4CAF50;
-    //     margin-top: 10px;
-    // }
     return <div className="bg-blue-50 p-5 my-3 border border-solid border-blue-500 rounded-lg">
         <h3>Take The Stare Challenge 🫣</h3>
         {!successMsg ? (
