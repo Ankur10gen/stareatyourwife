@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useRef} from "react";
 import {useRouter} from "next/navigation";
-import {ChallengeType, GameType} from "stare/home/gaming/GameType";
+import {ChallengeType, GameType} from "stare/game/GameType";
 import './GiveChallenge.css'
 import {gsap} from "gsap";
 import {CSSPlugin} from "gsap/CSSPlugin";

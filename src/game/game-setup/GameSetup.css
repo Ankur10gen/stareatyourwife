@@ -12,12 +12,12 @@
     max-width: 500px;
     margin: 100px auto;
     padding: 20px;
-    border: 3px solid #ff66cc;
+    /*border: 3px solid #ff66cc;*/
     border-radius: 20px;
     text-align: center;
     background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
     color: #fff;
-    box-shadow: 0 0 50px rgba(255, 102, 204, 0.5);
+    /*box-shadow: 0 0 50px rgba(255, 102, 204, 0.5);*/
 }
 
 .step-content {

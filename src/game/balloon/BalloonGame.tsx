@@ -1,8 +1,9 @@
 import React, {useEffect} from "react";
-import {GameControls} from "stare/home/gaming/GameControls";
-import {useBalloonGame} from "stare/home/gaming/balloon/useBalloonGame";
-import {GameType} from "stare/home/gaming/GameType";
+import {GameControls} from "stare/game/GameControls";
+import {useBalloonGame} from "stare/game/balloon/useBalloonGame";
+import {GameType} from "stare/game/GameType";
 import {Game} from "stare/game/socket/types";
+import './BalloonGame.css';
 
 interface BalloonGameProps {
     /*null in case of single player*/

@@ -1,14 +1,13 @@
 'use client'
 import React, {useRef, useState} from "react";
 import {SocialShare} from "stare/home/social-share/SocialShare";
-import './GamingSection.css';
 import {GameSetup, GameState} from "stare/game/game-setup/GameSetup";
 import {GameBackground} from "stare/game/image-view/GameBackground";
-import {BalloonGame} from "stare/game/BalloonGame";
+import {BalloonGame} from "stare/game/balloon/BalloonGame";
 import {useGameSocket} from "stare/game/socket/useGameSocket";
-import {GameScore} from "stare/home/gaming/GameScore";
-import {GameResult} from "stare/home/gaming/GameResult";
-import {ChallengeType, GameType} from "stare/home/gaming/GameType";
+import {GameScore} from "stare/game/GameScore";
+import {GameResult} from "stare/game/GameResult";
+import {ChallengeType, GameType} from "stare/game/GameType";
 
 interface GamingSectionProps {
     gameType?: GameType | null;
@@ -59,9 +58,10 @@ export const GamingSection = ({gameType, challengeType}: GamingSectionProps) => 
     console.log("GameSection game:", game);
 
     const isStarted = game?.status === 'started';
+    const isFinished = game?.status === 'finished';
 
     return (
-        <div ref={screenshotRef} className="relative m-0 p-0">
+        <div ref={screenshotRef} className="relative m-0 p-0 flex justify-center items-center">
 
             <GameSetup createGame={onCreateGame}
                        game={game}
@@ -76,7 +76,7 @@ export const GamingSection = ({gameType, challengeType}: GamingSectionProps) => 
 
             <GameScore game={game}/>
             <GameResult game={game}/>
-            <SocialShare screenshotRef={screenshotRef}/>
+            {isFinished&&<SocialShare screenshotRef={screenshotRef}/>}
         </div>
     );
 };

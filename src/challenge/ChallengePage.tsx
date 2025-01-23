@@ -2,9 +2,9 @@
 import React from 'react';
 import {useSearchParams} from "next/navigation";
 // import {GamingSection} from "stare/home/gaming/GamingSection";
-import {toChallengeType, toGameType} from "stare/home/gaming/GameType";
+import {toChallengeType, toGameType} from "stare/game/GameType";
 import {SocketProvider} from "stare/game/socket/SocketProvider";
-import {GamingSection} from "stare/home/gaming/GamingSection";
+import {GamingSection} from "stare/game/GamingSection";
 
 export const ChallengePage = () => {
     const params = useSearchParams();
@@ -16,10 +16,12 @@ export const ChallengePage = () => {
 
     return (
         <SocketProvider>
-            <div className={'w-full min-h-screen overflow-auto'}
-                 style={
-                     {background: "linear-gradient(135deg, #000428, #004e92)"}
-                 }>
+            <div className={'pt-20 w-full min-h-screen overflow-auto'}
+                 // style={
+                 //     {background: "linear-gradient(135deg, #000428, #004e92)"}
+                 //     {background: "linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d)"}
+                 // }
+            >
                 <GamingSection gameType={gameType} challengeType={challengeType}/>
             </div>
         </SocketProvider>

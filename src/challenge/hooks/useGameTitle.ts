@@ -1,5 +1,5 @@
 import {useMemo} from "react";
-import {ChallengeType, GameType} from "stare/home/gaming/GameType";
+import {ChallengeType, GameType} from "stare/game/GameType";
 
 export const useGameTitle = (gameType: GameType | null, challengeType: ChallengeType | null) => {
     return useMemo(() => {

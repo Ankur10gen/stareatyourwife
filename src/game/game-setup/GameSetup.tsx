@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import {gsap} from "gsap";
 import {CSSPlugin} from "gsap/CSSPlugin";
 import "./GameSetup.css";
-import {ChallengeType, GameType} from "stare/home/gaming/GameType";
+import {ChallengeType, GameType} from "stare/game/GameType";
 import {Game} from "stare/game/socket/types";
 
 gsap.registerPlugin(CSSPlugin);
@@ -70,12 +70,12 @@ export const GameSetup = ({game, createGame, startGame, joinGame, challengeType,
         }
 
         // Floating particle effect in the background
-        gsap.to(backgroundRef.current, {
-            backgroundPosition: "200% 0",
-            duration: 8,
-            repeat: -1,
-            ease: "linear",
-        });
+        // gsap.to(backgroundRef.current, {
+        //     backgroundPosition: "200% 0",
+        //     duration: 8,
+        //     repeat: -1,
+        //     ease: "linear",
+        // });
     }, [step]);
 
     const nextStep = () => setStep((prev) => prev + 1);
