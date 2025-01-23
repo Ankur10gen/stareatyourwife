@@ -61,7 +61,7 @@ export const GamingSection = ({gameType, challengeType}: GamingSectionProps) => 
     const isFinished = game?.status === 'finished';
 
     return (
-        <div ref={screenshotRef} className="relative m-0 p-0 flex justify-center items-center">
+        <div ref={screenshotRef} className="relative m-0 p-0">
 
             <GameSetup createGame={onCreateGame}
                        game={game}
@@ -72,11 +72,11 @@ export const GamingSection = ({gameType, challengeType}: GamingSectionProps) => 
 
             {imageUrl && <GameBackground imageUrl={imageUrl}/>}
 
-            {isStarted && <BalloonGame gameId={gameId} gameType={gameType} game={game}/>}
+            {isStarted && gameId && <BalloonGame gameId={gameId} gameType={gameType} game={game}/>}
 
             <GameScore game={game}/>
             <GameResult game={game}/>
-            {isFinished&&<SocialShare screenshotRef={screenshotRef}/>}
+            {isFinished && <SocialShare screenshotRef={screenshotRef}/>}
         </div>
     );
 };

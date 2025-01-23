@@ -3,11 +3,12 @@ import {GameControls} from "stare/game/GameControls";
 import {useBalloonGame} from "stare/game/balloon/useBalloonGame";
 import {GameType} from "stare/game/GameType";
 import {Game} from "stare/game/socket/types";
-import './BalloonGame.css';
+import './Heart.css';
+import './Poop.css'
 
 interface BalloonGameProps {
     /*null in case of single player*/
-    gameId: string | null;
+    gameId: string;
     gameType?: GameType | null;
     game: Game,
 }
@@ -17,38 +18,50 @@ export const BalloonGame = ({game, gameId, gameType}: BalloonGameProps) => {
     const isSinglePlayer = gameType === GameType.SINGLE_PLAYER
 
     const {
-        showBubble,
-        bubbleState,
-        bubblePosition,
+        balloons,
+        startBalloonGame,
+        closeBalloonGame,
         handleBubbleClick,
         onSpeedChange,
-        spawnBubble,
+        removeBalloon,
+        stopBalloonGame
     } = useBalloonGame({isSinglePlayer: isSinglePlayer, game});
 
     useEffect(() => {
-        spawnBubble(gameId);
-        console.log("GameId:useEffect", gameId);
-    }, [gameId]);
+        console.log("useEffect Starting balloon game");
+        startBalloonGame();
+        return () => {
+            closeBalloonGame();
+        }
+    }, [startBalloonGame, closeBalloonGame]);
 
     const speed = game?.speed ?? 1;
 
-    if (!gameId) return null;
-    console.log("bubble state:", bubbleState, bubblePosition);
+    console.log("BalloonGame game:", balloons.length);
+
     return <>
-        {showBubble && (
-            <div
-                className="bubble"
-                data-state={bubbleState}
-                style={{
-                    top: bubbleState === 'burst' ? `${bubblePosition.top}px` : `${bubblePosition.top}%`,
-                    left: bubbleState === 'burst' ? `${bubblePosition.left}px` : `${bubblePosition.left}%`,
-                    animationDuration: bubbleState === 'burst' ? '.3s' : `${5 - speed}s`,
-                }}
-                onClick={(event) => {
-                    handleBubbleClick(gameId, event);
-                }}>
-                <div className={'balloon'} data-state={bubbleState}/>
-            </div>
+        {balloons.map((balloon) => (
+                <div key={balloon.id}
+                     className={balloon.type}
+                     data-state={balloon.state}
+                     style={{
+                         top: balloon.state === 'burst' ? `${balloon.top}px` : `${balloon.top}%`,
+                         left: balloon.state === 'burst' ? `${balloon.left}px` : `${balloon.left}%`,
+                         animationDuration: balloon.state === 'burst' ? '.3s' : `${4 - speed}s`,
+                     }}
+                     onClick={(event) => {
+                         handleBubbleClick(gameId, balloon.id, event);
+                     }}
+                     onAnimationEnd={() => {
+                         if (balloon.type === 'heart' && balloon.state === 'floating') {
+                             stopBalloonGame(gameId)
+                         } else if (balloon.type === 'poop' && balloon.state === 'burst') {
+                             removeBalloon(balloon.id)
+                         }
+                     }}>
+                    <div className={`${balloon.type}-inner`} data-state={balloon.state}/>
+                </div>
+            )
         )}
         <GameControls onSpeedChange={(speed) => onSpeedChange(gameId, speed)} speed={speed}/>
     </>

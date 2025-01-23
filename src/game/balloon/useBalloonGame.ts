@@ -1,45 +1,61 @@
-import React, {useCallback, useRef, useState} from "react";
+import React, {useCallback, useState} from "react";
 import {useGameSocket} from "stare/game/socket/useGameSocket";
-import {Game, GameStatus} from "stare/game/socket/types";
+import {Game} from "stare/game/socket/types";
 
 interface BalloonGameProps {
     isSinglePlayer: boolean;
     game: Game,
 }
 
-export const useBalloonGame = ({game, isSinglePlayer}: BalloonGameProps) => {
+interface GameObject {
+    id: string;
+    top: number;
+    left: number;
+    speed: number;
+    state: 'floating' | 'burst';
+    score: number;
+    type: 'heart' | 'poop';
+}
 
-    const [showBubble, setShowBubble] = useState<boolean>(false);
-    const [bubbleState, setBubbleState] = useState<'floating' | 'burst'>('floating');
-    const [bubblePosition, setBubblePosition] = useState<{ top: number; left: number }>({top: 0, left: 0});
-    const bubbleTimeout = useRef<NodeJS.Timeout | null>(null);
+export const useBalloonGame = ({game, isSinglePlayer}: BalloonGameProps) => {
 
     const {socket, setGameOver, setGameSpeed, setGameState} = useGameSocket();
 
-    const spawnBubble = useCallback((gameId: string | null) => {
-        console.log("Spawning bubble");
-        const challengeOver = game?.status === GameStatus.finished;
+    const [balloons, setBalloons] = useState<GameObject[]>([]);
+    const timeoutRef = React.useRef<NodeJS.Timeout | null>(null);
+
+    const spawnBubble = useCallback(() => {
+
         const speed = game?.speed || 1;
-        if (challengeOver) return;
-
-        const randomLeft = Math.random() * 35 + 30;
+        const randomLeft = Math.random() * 70 + 15;
         const randomTop = Math.random() * 10 + 10;
+        const id = Math.random().toString(36).substring(2, 9);
+        const state: 'floating' | 'burst' = 'floating';
 
-        setBubblePosition({top: randomTop, left: randomLeft});
-        setShowBubble(true);
+        /*if speed is 1, create 10% poop
+        * speed:2, poop:15%
+        * speed:3, poop:20%
+        * */
+        const type: 'poop' | 'heart' = Math.random() < 0.1 + (speed - 1) * 0.05 ? 'poop' : 'heart';
+        const score = type === 'poop' ? -5 : 1;
 
-        if (bubbleTimeout.current) clearTimeout(bubbleTimeout.current);
+        const newBalloon = {
+            id: id,
+            top: randomTop, // Start at the top
+            left: randomLeft, // Random horizontal position
+            speed: Math.random() * speed + 1, // Random speed between 2 and 5 seconds
+            state,
+            score,
+            type
+        };
+        console.log("Spawning bubble", newBalloon);
 
-        bubbleTimeout.current = setTimeout(() => {
-            setShowBubble(false);
-            if (gameId) {
-                setGameOver(gameId, isSinglePlayer);
-            }
-        }, 1000 * (5 - speed));
-    }, [game?.speed, game?.status, isSinglePlayer, setGameOver]);
+        setBalloons((prevBalloons) => [...prevBalloons, newBalloon]);
+
+    }, [game?.speed]);
 
     // Handle bubble burst
-    const handleBubbleClick = (gameId: string, event: React.MouseEvent<HTMLDivElement>) => {
+    const handleBubbleClick = (gameId: string, balloonId: string, event: React.MouseEvent<HTMLDivElement>) => {
         console.log("Bubble clicked");
         const bubbleElement = event.currentTarget as HTMLDivElement;
         const rect = bubbleElement.getBoundingClientRect();
@@ -52,12 +68,18 @@ export const useBalloonGame = ({game, isSinglePlayer}: BalloonGameProps) => {
 
         console.log("Bubble position:", frozenTop, frozenLeft);
 
-        setBubblePosition({top: frozenTop, left: frozenLeft});
-        setBubbleState('burst');
+        // Update balloon state
+        const balloon = balloons.find(b => b.id === balloonId);
+        if (!balloon) return;
+
+        setBalloons((prevBalloons) =>
+            prevBalloons.map((b) =>
+                b.id === balloonId ? {...b, top: frozenTop, left: frozenLeft, state: 'burst'} : b
+            )
+        );
 
         setTimeout(() => {
-            setBubbleState("floating");
-            setShowBubble(false);
+            removeBalloon(balloonId);
         }, 300);
 
         if (isSinglePlayer) {
@@ -67,7 +89,7 @@ export const useBalloonGame = ({game, isSinglePlayer}: BalloonGameProps) => {
             const newPlayers = Object.keys(players).reduce((acc, player) => {
                 const newPlayer = {
                     ...players[player],
-                    score: players[player].score + 1
+                    score: players[player].score + balloon.score
                 };
                 return {
                     ...acc,
@@ -81,32 +103,83 @@ export const useBalloonGame = ({game, isSinglePlayer}: BalloonGameProps) => {
                 players: newPlayers
             });
         } else {
-            socket?.emit('bubbleBurst', {gameId, score: 1});
+            socket?.emit('bubbleBurst', {gameId, score: balloon.score});
         }
-
-        if (bubbleTimeout.current) clearTimeout(bubbleTimeout.current);
-
-        const speed = game?.speed || 1;
-        setTimeout(() => {
-            const challengeOver = game?.status === GameStatus.finished;
-            if (!challengeOver) spawnBubble(gameId);
-        }, 1000 * (2 / speed));
     };
-
 
     const onSpeedChange = useCallback((gameId: string, speed: number) => {
         setGameSpeed(gameId, speed, isSinglePlayer);
-        if (bubbleTimeout.current) clearTimeout(bubbleTimeout.current);
-        spawnBubble(gameId);
-    }, [isSinglePlayer, setGameSpeed, spawnBubble]);
+    }, [isSinglePlayer, setGameSpeed]);
+
+    const removeBalloon = useCallback((id: string) => {
+        setBalloons((prevBalloons) => prevBalloons.filter((b) => b.id !== id));
+    }, []);
+
+    const getRandomInterval = useCallback((speed: number) => {
+        let min, max;
+
+        switch (speed) {
+            case 1:  // Slow speed
+                min = 1500;  // Minimum delay of 1.5 seconds
+                max = 3000;  // Maximum delay of 3 seconds
+                break;
+            case 2:  // Medium speed
+                min = 700;  // Minimum delay of 1 second
+                max = 1500;  // Maximum delay of 2 seconds
+                break;
+            case 3:  // Fast speed
+                min = 500;   // Minimum delay of 0.5 seconds
+                max = 1000;  // Maximum delay of 1.5 seconds
+                break;
+            default:  // Default to medium speed
+                min = 1000;
+                max = 2000;
+        }
+
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }, []);
+
+    const spawnWithRandomInterval = useCallback(() => {
+        spawnBubble();  // Spawn a balloon
+
+        const speed = game?.speed || 1;
+        const randomDelay = getRandomInterval(speed);  // Get a random delay
+        console.log("spawnWithRandomInterval", randomDelay, speed);
+
+        timeoutRef.current = setTimeout(spawnWithRandomInterval, randomDelay);
+    }, [game?.speed, getRandomInterval, spawnBubble]);
+
+    const startBalloonGame = useCallback(() => {
+        spawnWithRandomInterval();  // Start spawning balloons
+    }, [spawnWithRandomInterval]);
+
+    const closeBalloonGame = useCallback(() => {
+        console.log("Stopping balloon game");
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+            timeoutRef.current = null;
+            setBalloons([]);
+        }
+    }, []);
+
+    const stopBalloonGame = useCallback((gameId: string) => {
+        console.log("Stopping balloon game");
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+            timeoutRef.current = null;
+            setBalloons([]);
+            setGameOver(gameId, isSinglePlayer);
+        }
+    }, [isSinglePlayer, setGameOver]);
 
     return {
-        showBubble,
-        bubbleState,
-        bubblePosition,
+        startBalloonGame,
+        closeBalloonGame,
         handleBubbleClick,
         onSpeedChange,
-        spawnBubble,
+        balloons,
+        removeBalloon,
+        stopBalloonGame,
         speed: game?.speed
     };
 }

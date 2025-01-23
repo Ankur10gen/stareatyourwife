@@ -139,7 +139,7 @@ export const GameSetup = ({game, createGame, startGame, joinGame, challengeType,
                                 if (isSinglePlayer) {
                                     createGame?.({
                                         ...gameState,
-                                        gameId: Math.random().toString(36).substring(7),
+                                        gameId: 'single-player',
                                         playerName: "Player 1",
                                         isSinglePlayer: true,
                                     });

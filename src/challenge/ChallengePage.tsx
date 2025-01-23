@@ -16,12 +16,7 @@ export const ChallengePage = () => {
 
     return (
         <SocketProvider>
-            <div className={'pt-20 w-full min-h-screen overflow-auto'}
-                 // style={
-                 //     {background: "linear-gradient(135deg, #000428, #004e92)"}
-                 //     {background: "linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d)"}
-                 // }
-            >
+            <div className={'pt-20 w-full min-h-screen overflow-auto'}>
                 <GamingSection gameType={gameType} challengeType={challengeType}/>
             </div>
         </SocketProvider>
