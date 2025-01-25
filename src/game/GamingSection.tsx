@@ -1,30 +1,27 @@
 'use client'
-import React, {useRef, useState} from "react";
+import React, {useCallback, useRef, useState} from "react";
 import {SocialShare} from "stare/home/social-share/SocialShare";
-import {GameSetup, GameState} from "stare/game/game-setup/GameSetup";
+import {GameState} from "stare/game/game-setup/GameSetup";
 import {GameBackground} from "stare/game/image-view/GameBackground";
 import {BalloonGame} from "stare/game/balloon/BalloonGame";
 import {useGameSocket} from "stare/game/socket/useGameSocket";
 import {GameScore} from "stare/game/GameScore";
 import {GameResult} from "stare/game/GameResult";
-import {ChallengeType, GameType} from "stare/game/GameType";
+import {GameSetup2} from "stare/game/game-setup/GameSetup2";
+import {ImageBanner} from "stare/home/banner/image-banner/ImageBanner";
+import {ErrorMsg} from "stare/game/error/ErrorMsg";
 
-interface GamingSectionProps {
-    gameType?: GameType | null;
-    challengeType?: ChallengeType | null;
-}
-
-export const GamingSection = ({gameType, challengeType}: GamingSectionProps) => {
+export const GamingSection = () => {
+    console.log('---GamingSection---');
 
     const screenshotRef = useRef<HTMLDivElement>(null);
 
     const [gameState, setGameState] = useState<GameState | null>();
     const {game, createGame, startGame, joinGame} = useGameSocket();
-    const isInGame = game?.status === 'started';
-    console.log("isInGame:", isInGame);
+    const isFinished = game?.status === 'finished';
 
     // Start a new game
-    const onCreateGame = (gameState: GameState) => {
+    const onCreateGame = useCallback((gameState: GameState) => {
         console.log("Creating game with state:", gameState);
         setGameState(gameState);
         const gameId = gameState.gameId;
@@ -34,16 +31,16 @@ export const GamingSection = ({gameType, challengeType}: GamingSectionProps) => 
         if (gameId && playerName) {
             createGame({gameId, playerName, challenge, isSinglePlayer: isSinglePlayer ?? false});
         }
-    };
+    }, [createGame]);
 
-    const onStartGame = (gameId: string) => {
+    const onStartGame = useCallback((gameId: string) => {
         console.log("Starting game with id:", gameId);
         if (gameId) {
             startGame(gameId);
         }
-    };
+    }, [startGame]);
 
-    const onJoinGame = (gameState: GameState) => {
+    const onJoinGame = useCallback((gameState: GameState) => {
         setGameState(gameState);
         const gameId = gameState.gameId;
         const playerName = gameState.playerName;
@@ -51,31 +48,43 @@ export const GamingSection = ({gameType, challengeType}: GamingSectionProps) => 
         if (gameId && playerName) {
             joinGame({gameId, playerName});
         }
-    };
+    }, [joinGame]);
 
     const imageUrl = gameState?.imageUrl;
     const gameId = gameState?.gameId ?? null;
-    console.log("GameSection game:", game);
-
-    const isStarted = game?.status === 'started';
-    const isFinished = game?.status === 'finished';
+    const isSinglePlayer = gameState?.isSinglePlayer ?? false;
+    const isChallenger = gameState?.isChallenger ?? false;
 
     return (
-        <div ref={screenshotRef} className="relative m-0 p-0">
+        <div ref={screenshotRef} className="relative m-0 p-4 h-full flex flex-col justify-center items-center">
 
-            <GameSetup createGame={onCreateGame}
-                       game={game}
-                       challengeType={challengeType}
-                       gameType={gameType}
-                       startGame={onStartGame}
-                       joinGame={onJoinGame}/>
+            {!gameState && <ImageBanner
+                createGame={onCreateGame}
+                joinGame={onJoinGame}
+            />}
+            {gameId && <GameSetup2 game={game}
+                                   isChallenger={isChallenger}
+                                   isSinglePlayer={isSinglePlayer}
+                                   gameId={gameId}
+                                   startGame={onStartGame}/>
+            }
 
-            {imageUrl && <GameBackground imageUrl={imageUrl}/>}
+            {gameState && <GameBackground imageUrl={imageUrl}/>}
+            {gameState && <ErrorMsg onClose={() => setGameState(null)}/>}
 
-            {isStarted && gameId && <BalloonGame gameId={gameId} gameType={gameType} game={game}/>}
+            {gameId &&
+                <BalloonGame
+                    gameId={gameId}
+                    isSinglePlayer={isSinglePlayer}
+                    game={game}
+                />}
 
-            <GameScore game={game}/>
-            <GameResult game={game}/>
+            <GameScore/>
+            {gameId &&
+                <GameResult game={game}
+                            gameId={gameId}
+                            isSinglePlayer={isSinglePlayer}
+                            isChallenger={isChallenger}/>}
             {isFinished && <SocialShare screenshotRef={screenshotRef}/>}
         </div>
     );

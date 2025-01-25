@@ -1,7 +1,6 @@
 import React, {useEffect} from "react";
 import {GameControls} from "stare/game/GameControls";
 import {useBalloonGame} from "stare/game/balloon/useBalloonGame";
-import {GameType} from "stare/game/GameType";
 import {Game} from "stare/game/socket/types";
 import './Heart.css';
 import './Poop.css'
@@ -9,35 +8,48 @@ import './Poop.css'
 interface BalloonGameProps {
     /*null in case of single player*/
     gameId: string;
-    gameType?: GameType | null;
+    isSinglePlayer: boolean;
     game: Game,
 }
 
-export const BalloonGame = ({game, gameId, gameType}: BalloonGameProps) => {
-
-    const isSinglePlayer = gameType === GameType.SINGLE_PLAYER
+export const BalloonGame = (
+    {
+        game,
+        gameId,
+        isSinglePlayer
+    }: BalloonGameProps) => {
 
     const {
         balloons,
         startBalloonGame,
-        closeBalloonGame,
         handleBubbleClick,
         onSpeedChange,
         removeBalloon,
-        stopBalloonGame
+        stopBalloonGame,
+        closeBalloonGame,
     } = useBalloonGame({isSinglePlayer: isSinglePlayer, game});
 
+    const isStarted = game?.status === 'started';
+    const isFinished = game?.status === 'finished';
+
     useEffect(() => {
-        console.log("useEffect Starting balloon game");
-        startBalloonGame();
+        if (isStarted) {
+            console.log("--------Balloon Game status:", isStarted);
+            startBalloonGame();
+        }
         return () => {
             closeBalloonGame();
         }
-    }, [startBalloonGame, closeBalloonGame]);
+    }, [closeBalloonGame, isStarted, startBalloonGame]);
 
-    const speed = game?.speed ?? 1;
-
-    console.log("BalloonGame game:", balloons.length);
+    useEffect(() => {
+        if (isFinished) {
+            console.log("--------Balloon Game isFinished:", isFinished);
+            closeBalloonGame();
+        } else {
+            console.log("--------Balloon Game isFinished else:", isFinished);
+        }
+    }, [closeBalloonGame, isFinished]);
 
     return <>
         {balloons.map((balloon) => (
@@ -47,7 +59,7 @@ export const BalloonGame = ({game, gameId, gameType}: BalloonGameProps) => {
                      style={{
                          top: balloon.state === 'burst' ? `${balloon.top}px` : `${balloon.top}%`,
                          left: balloon.state === 'burst' ? `${balloon.left}px` : `${balloon.left}%`,
-                         animationDuration: balloon.state === 'burst' ? '.3s' : `${4 - speed}s`,
+                         animationDuration: balloon.state === 'burst' ? '.3s' : `${balloon.speed}s`,
                      }}
                      onClick={(event) => {
                          handleBubbleClick(gameId, balloon.id, event);
@@ -63,6 +75,6 @@ export const BalloonGame = ({game, gameId, gameType}: BalloonGameProps) => {
                 </div>
             )
         )}
-        <GameControls onSpeedChange={(speed) => onSpeedChange(gameId, speed)} speed={speed}/>
+        <GameControls onSpeedChange={(speed) => onSpeedChange(gameId, speed)} speed={game.speed}/>
     </>
-}
+};

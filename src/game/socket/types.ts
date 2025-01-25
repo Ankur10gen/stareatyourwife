@@ -6,9 +6,9 @@ export interface Player {
 export interface Game {
     players: Record<string, Player>;
     speed: number;
-    challenge: string|null;
+    challenge: string | null;
     result: GameResult | null;
-    status: string;
+    status: GameStatus;
     error: GameErrors | null;
 }
 
@@ -38,6 +38,7 @@ export enum GameEvent {
 
 export enum GameAction {
     createGame = "createGame",
+    restartGame = "restartGame",
     startGame = "startGame",
     setSpeed = "setSpeed",
     gameOver = "gameOver",

@@ -2,18 +2,17 @@ import React, {useEffect, useRef, useState} from "react";
 import {gsap} from "gsap";
 import {CSSPlugin} from "gsap/CSSPlugin";
 import "./GameSetup.css";
-import {ChallengeType, GameType} from "stare/game/GameType";
 import {Game} from "stare/game/socket/types";
 
 gsap.registerPlugin(CSSPlugin);
 
-interface GameInputProps {
+export interface GameInputProps {
     game: Game,
     createGame?: (gameState: GameState) => void,
     startGame?: (gameId: string) => void,
     joinGame?: (gameState: GameState) => void,
-    challengeType?: ChallengeType | null,
-    gameType?: GameType | null | undefined
+    isChallenger?: boolean,
+    isSinglePlayer?: boolean,
 }
 
 export type GameState = {
@@ -21,12 +20,12 @@ export type GameState = {
     playerName: string | null,
     challenge: string | null,
     imageUrl: string | null,
-    isSinglePlayer: boolean | null
+    isSinglePlayer?: boolean,
+    isChallenger?: boolean,
 }
 
-export const GameSetup = ({game, createGame, startGame, joinGame, challengeType, gameType}: GameInputProps) => {
-    const isAcceptor = challengeType === ChallengeType.ACCEPTOR;
-    const isSinglePlayer = gameType === GameType.SINGLE_PLAYER;
+export const GameSetup = ({game, createGame, startGame, joinGame, isChallenger, isSinglePlayer}: GameInputProps) => {
+    const isAcceptor = !isChallenger;
     const initialStep = isSinglePlayer ? 2 : isAcceptor ? 2 : 1;
     const [step, setStep] = useState(initialStep);
     const stepRef = useRef(null);

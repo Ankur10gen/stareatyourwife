@@ -2,7 +2,6 @@
 import React from "react";
 import "../core/App.css";
 import {ChallengeView} from "stare/home/challenge/ChallengeView";
-import {GiveChallenge} from "stare/home/give-challenge/GiveChallenge";
 import {TopBanner} from "stare/home/top-banner/TopBanner";
 
 const Home: React.FC = () => {
@@ -25,7 +24,6 @@ const Home: React.FC = () => {
                     </a>
                 </h1>
 
-                <GiveChallenge/>
                 <ChallengeView/>
 
                 <div className={'twitter-tweet-container'}>

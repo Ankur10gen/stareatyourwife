@@ -1,3 +1,3 @@
-import Home from '../home/Home';
+import Home2 from "stare/home/Home2";
 
-export default Home
+export default Home2

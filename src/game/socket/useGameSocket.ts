@@ -5,6 +5,7 @@ import {Game, GameAction, GameEvent, GameStatus} from "stare/game/socket/types";
 
 export const useGameSocket = () => {
     const {socket, game, setGame} = useSocket();
+    console.log("useGameSocket socket:", socket?.id, socket?.connected);
 
     const setGameState = useCallback((game: Game) => {
         console.log("Game state changed:", game);
@@ -15,7 +16,6 @@ export const useGameSocket = () => {
         if (!socket) return;
 
         socket.on(GameEvent.onStateChanged, (game: Game) => {
-            console.log("Game state changed:", game);
             setGameState(game);
         });
 
@@ -30,12 +30,12 @@ export const useGameSocket = () => {
         challenge: string | null,
         isSinglePlayer: boolean | null
     }) => {
-        console.log("Creating game:", gameId, playerName, challenge, socket?.id, socket?.connected);
-        if (isSinglePlayer == true) {
+        console.log("Creating game:", gameId, playerName, challenge, socket?.id, socket?.connected, '----');
+        if (isSinglePlayer === true) {
             console.log("Single player game");
             setGameState({
                 ...game,
-                status: 'started',
+                status: 'started' as GameStatus,
                 players: {
                     [playerName]: {
                         name: playerName,
@@ -51,6 +51,31 @@ export const useGameSocket = () => {
         }
     }, [socket, setGameState, game])
 
+    const restartGame = useCallback((gameId: string, isSinglePlayer: boolean) => {
+        console.log("Restart game:");
+        if (isSinglePlayer) {
+            console.log("Single player game");
+            const playerName = Object.keys(game.players)[0];
+            setGameState({
+                status: 'waiting' as GameStatus,
+                players: {
+                    [playerName]: {
+                        name: playerName,
+                        score: 0
+                    }
+                },
+                challenge: game.challenge,
+                speed: 1,
+                error: null,
+                result: null
+            })
+            return;
+        } else {
+            console.log("Multiplayer game");
+            socket?.emit(GameAction.restartGame, {gameId});
+        }
+    }, [game.challenge, game.players, setGameState, socket])
+
     const startGame = useCallback((gameId: string) => {
         socket?.emit(GameAction.startGame, {gameId});
     }, [socket])
@@ -61,6 +86,7 @@ export const useGameSocket = () => {
     }, [socket])
 
     const setGameOver = useCallback((gameId: string, isSinglePlayer: boolean | null) => {
+        console.log("Game over:", gameId);
         if (isSinglePlayer) {
             setGameState({
                 ...game,
@@ -88,5 +114,15 @@ export const useGameSocket = () => {
         }
     }, [game, setGameState, socket]);
 
-    return {socket, game, createGame, startGame, joinGame, setGameOver, setGameSpeed, setGameState};
+    return {
+        socket,
+        game,
+        createGame,
+        startGame,
+        joinGame,
+        setGameOver,
+        setGameSpeed,
+        setGameState,
+        restartGame
+    };
 }

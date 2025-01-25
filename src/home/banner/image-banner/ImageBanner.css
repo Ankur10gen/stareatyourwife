@@ -1,0 +1,126 @@
+/* Styling for the uploaded photo */
+.uploaded-photo-container {
+    position: relative; /* Enables positioning of buttons on top of the image */
+    width: 100%; /* Full screen width */
+    height: 100%; /* Full screen height */
+    overflow: hidden; /* Ensures no overflow beyond the viewport */
+}
+
+.challenge-text {
+    text-align: left;
+    color: #5f6368;
+    font-size: .85rem;
+    font-family: sans-serif;
+}
+
+
+.uploaded-photo {
+    width: 100%; /* Full width of the screen */
+    height: 100%; /* Full height of the screen */
+    object-fit: contain; /* Ensures the image covers the entire area without distortion */
+}
+
+/* Buttons container on the image */
+.button-container {
+    position: absolute;
+    bottom: 10%; /* Position buttons near the bottom of the image */
+    width: 100%; /* Full width of the image */
+    display: flex;
+    justify-content: space-around; /* Space buttons evenly */
+    gap: 10px; /* Add some spacing between buttons */
+    padding: 0 20px; /* Add some padding on the sides */
+}
+
+/* Styling for buttons */
+.stare-button {
+    flex: 1; /* Makes all buttons take equal space */
+    height: 50px; /* Consistent button height */
+    max-width: 150px; /* Optional: Set a max width for each button */
+    background-color: rgba(125, 19, 19, 0.8); /* Semi-transparent background for visibility */
+    color: #fff;
+    border: none;
+    border-radius: 8px; /* Rounded corners */
+    font-size: 16px; /* Slightly larger text for better readability */
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.stare-button:hover {
+    background-color: rgba(165, 28, 28, 0.8);
+}
+
+.stare-button:active {
+    background-color: rgba(92, 14, 14, 0.8);
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .stare-button {
+        font-size: 14px; /* Adjust font size for smaller screens */
+        height: 40px; /* Adjust height for smaller buttons */
+    }
+}
+
+/* Overlay for the dialog box */
+.dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10; /* Ensure it is on top of other content */
+}
+
+/* Dialog box styling */
+.dialog-box {
+    background-color: #fff;
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width: 90%;
+    width: 400px;
+}
+
+.dialog-box h3 {
+    margin-bottom: 20px;
+    font-size: 20px;
+    color: #7d1313;
+}
+
+.dialog-box input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.dialog-box button {
+    background-color: #7d1313;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dialog-box button:hover {
+    background-color: #a51c1c;
+}
+
+.dialog-box button:active {
+    background-color: #5c0e0e;
+}
+
+/* Hides dialog by default */
+.hidden {
+    display: none;
+}
