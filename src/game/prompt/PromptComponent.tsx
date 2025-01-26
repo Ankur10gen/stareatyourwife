@@ -15,7 +15,7 @@ export const PromptComponent = ({onClose}: PromptComponentProps) => {
     ];
 
     const [currentPrompt, setCurrentPrompt] = useState("");
-    const [timeLeft, setTimeLeft] = useState(15); // Rest time in seconds
+    const [timeLeft, setTimeLeft] = useState(30); // Rest time in seconds
 
     useEffect(() => {
         // Set a random prompt when the component loads
@@ -41,16 +41,19 @@ export const PromptComponent = ({onClose}: PromptComponentProps) => {
             {/*close icon on right top corner*/}
             <div className={'flex justify-end w-full mr-4'} onClick={onClose}>
                 <div className={'w-6 h-6'}>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className={'text-white'}>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                         className={'text-white'}>
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                               d="M6 18L18 6M6 6l12 12"/>
                     </svg>
                 </div>
             </div>
-            <div className={'prompt-box'}>
-                <h1 className={'title'}>Take a Moment</h1>
-                <p className={'prompt-text'}>{currentPrompt}</p>
-                <p className={'timer-text'}>Resting for: {timeLeft} seconds</p>
+            <div className={'prompt-outer'}>
+                <div className={'prompt-box'}>
+                    <h1 className={'title'}>Take a Moment</h1>
+                    <p className={'prompt-text'}>{currentPrompt}</p>
+                    <p className={'timer-text'}>Resting for: {timeLeft} seconds</p>
+                </div>
             </div>
         </div>
     );

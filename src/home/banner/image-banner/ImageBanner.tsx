@@ -96,7 +96,9 @@ export const ImageBanner = ({
             {isDialogOpen && (
                 <div className="dialog-overlay">
                     <div className="dialog-box">
-                        <h3>Give Your Duo a Unique Name</h3>
+                        <h3>{isChallenger
+                            ? "Give Your Duo a Unique Name"
+                            : "Join At Your Unique Duo Name"}</h3>
                         <input
                             type="text"
                             value={gameName}
@@ -115,9 +117,9 @@ export const ImageBanner = ({
                             Optional: Enter a dare (loser must do this, e.g., sing a song or cook dinner)
                         </div>}
 
-                        <div>
-                            <button onClick={handleStartGame}>{isChallenger ? "Start Game" : "Join Game"}</button>
-                            <button onClick={handleDialogClose} style={{marginLeft: "10px"}}>
+                        <div className={'flex justify-around'}>
+                            <button onClick={handleStartGame}>{isChallenger ? "Start Stare" : "Join Stare"}</button>
+                            <button onClick={handleDialogClose}>
                                 Cancel
                             </button>
                         </div>

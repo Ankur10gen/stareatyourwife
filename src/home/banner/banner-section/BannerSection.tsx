@@ -22,14 +22,14 @@ export const BannerSection = ({onImageUploaded}: BannerSectionProps) => {
     return (
         <div className="kindle-screen">
             <div className="kindle-content">
-                <h1 className="title">StareGame Starts With Their Photo</h1>
-                <p className="subtitle">Upload one to your screen and let the challenge unfold.</p>
+                <h1 className="title"><a className={'underline'} href={'/about-us'}>StareGame</a> Starts With Their Photo</h1>
+                <p className="subtitle">Place one on your screen and let the challenge unfold.</p>
                 <p className="info">
                     A seal of trust. Your photo stays private, never leaving your browser. It&#39;s as secure as it is
                     on your phone right now.
                 </p>
                 <label className="upload-label">
-                    Upload Photo
+                    Place Photo
                     <input
                         type="file"
                         accept="image/*"

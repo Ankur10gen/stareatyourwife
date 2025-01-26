@@ -57,7 +57,7 @@ export const useGameSocket = () => {
             console.log("Single player game");
             const playerName = Object.keys(game.players)[0];
             setGameState({
-                status: 'waiting' as GameStatus,
+                status: 'started' as GameStatus,
                 players: {
                     [playerName]: {
                         name: playerName,
@@ -93,7 +93,7 @@ export const useGameSocket = () => {
                 result: {
                     winner: Object.keys(game.players)[0],
                     score: Object.values(game.players)[0].score,
-                    message: "Game Over"
+                    message: "Stare Game Sprint Ends"
                 },
                 status: GameStatus.finished
             })

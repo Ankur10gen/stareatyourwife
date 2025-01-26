@@ -1,0 +1,53 @@
+.about-us-container {
+    padding: 40px 20px;
+    color: #333;
+    text-align: start;
+}
+
+.about-us-content {
+    max-width: 800px;
+    margin: 0 auto;
+    border-radius: 10px;
+}
+
+.about-us-content .title {
+    font-size: 1.2rem;
+    color: #7d1313;
+    margin-bottom: 20px;
+}
+
+.about-us-content h2 {
+    font-size: 1.2rem;
+    margin-top: 20px;
+    color: #7d1313;
+}
+
+.about-us-content p {
+    line-height: 1.6;
+    margin: 10px 0;
+}
+
+.about-us-content ul {
+    list-style-type: disc;
+    margin-left: 20px;
+    line-height: 1.6;
+}
+
+.about-us-content .social-links {
+    margin-top: 30px;
+}
+
+.about-us-content .social-links p {
+    margin-bottom: 10px;
+}
+
+.about-us-content .social-links a {
+    margin: 0 10px;
+    color: #7d1313;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.about-us-content .social-links a:hover {
+    text-decoration: underline;
+}

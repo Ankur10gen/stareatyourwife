@@ -6,7 +6,7 @@ import {GamingSection} from "stare/game/GamingSection";
 const ChallengePage = () => {
     return (
         <SocketProvider>
-            <div className={'w-full min-h-screen overflow-auto'}>
+            <div className={'w-full h-full overflow-auto'}>
                 <GamingSection/>
             </div>
         </SocketProvider>

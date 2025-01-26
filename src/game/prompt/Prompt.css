@@ -3,23 +3,25 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 100%;
     background: #00000094;
 }
 
 .prompt-box {
-    text-align: center;
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 25px;
+    padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+    max-width: 100%;
+    opacity: 0.8;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+.prompt-outer{
+    border-radius: 12px;
     max-width: 90%;
     border: 1px solid #d4e5ff;
     background-image: url("../../../public/prompt.JPG");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    opacity: 0.8;
 }
 
 .title {
