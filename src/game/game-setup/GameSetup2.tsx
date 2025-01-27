@@ -15,7 +15,8 @@ export const GameSetup2 = ({
     const [isMindfullness, setIsMindfullness] = useState<boolean>(true);
 
     const isAcceptor = !isChallenger;
-    const {error} = game ?? {};
+    const {error} = game;
+    const {prompt} = game;
     const isGameJoined = game?.status === 'joined';
     const isGameStarted = game?.status === 'started';
     const isGameFinished = game?.status === 'finished';
@@ -35,7 +36,7 @@ export const GameSetup2 = ({
 
     if (isGameFinished) {
         if (isMindfullness) {
-            return <PromptComponent onClose={() => setIsMindfullness(false)}/>
+            return <PromptComponent onClose={() => setIsMindfullness(false)} prompt={prompt}/>
         }
         return null;
     }

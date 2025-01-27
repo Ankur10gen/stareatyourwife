@@ -71,7 +71,7 @@ export const useBalloonGame = ({game, isSinglePlayer}: BalloonGameProps) => {
     const spawnBubble = useCallback(() => {
 
         const speed = game?.speed || 1;
-        const randomLeft = Math.random() * 70 + 15;
+        const randomLeft = Math.random() * 75 + 5;
         const randomTop = Math.random() * 10 + 10;
         const id = Math.random().toString(36).substring(2, 9);
         const state: 'floating' | 'burst' = 'floating';

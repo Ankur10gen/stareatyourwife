@@ -4,6 +4,7 @@ import {useBalloonGame} from "stare/game/balloon/useBalloonGame";
 import {Game} from "stare/game/socket/types";
 import './Heart.css';
 import './Poop.css'
+import GameTimer from "stare/game/GameTimer";
 
 interface BalloonGameProps {
     /*null in case of single player*/
@@ -52,6 +53,9 @@ export const BalloonGame = (
     }, [closeBalloonGame, isFinished]);
 
     return <>
+        {isStarted && <GameTimer onGameEnd={() => {
+            stopBalloonGame(gameId)
+        }} timeInMillis={game.duration ?? 60}/>}
         {balloons.map((balloon) => (
                 <div key={balloon.id}
                      className={balloon.type}
@@ -65,11 +69,15 @@ export const BalloonGame = (
                          handleBubbleClick(gameId, balloon.id, event);
                      }}
                      onAnimationEnd={() => {
-                         if (balloon.type === 'heart' && balloon.state === 'floating') {
-                             stopBalloonGame(gameId)
-                         } else if (balloon.type === 'poop' && balloon.state === 'burst') {
+                         if (balloon.type === 'heart') {
                              removeBalloon(balloon.id)
                          }
+                         // if (balloon.type === 'heart' && balloon.state === 'floating') {
+                         //     stopBalloonGame(gameId)
+                         // }
+                         // else if (balloon.type === 'poop' && balloon.state === 'floating') {
+                         //     removeBalloon(balloon.id)
+                         // }
                      }}>
                     <div className={`${balloon.type}-inner`} data-state={balloon.state}/>
                 </div>

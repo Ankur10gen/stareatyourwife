@@ -21,7 +21,9 @@ export const SocketProvider: FC<{ children: ReactNode }> = ({children}) => {
         challenge: null,
         result: null,
         status: 'waiting' as GameStatus,
-        error: null
+        error: null,
+        prompt: null,
+        duration: 120,
     });
 
     useEffect(() => {

@@ -2,24 +2,18 @@ import React, {useEffect, useState} from "react";
 import './Prompt.css';
 
 interface PromptComponentProps {
-    onClose?: () => void
+    onClose?: () => void;
+    prompt: string|null;
 }
 
-export const PromptComponent = ({onClose}: PromptComponentProps) => {
-    const prompts = [
-        "Give silent compliments to each other in your mind while maintaining eye contact.",
-        "Think about one way you’ve supported each other recently and hold onto that feeling.",
-        "While staring, reflect on one thing you deeply appreciate about your partner. Share it later.",
-        "Recall a fun or meaningful memory you share and smile about it together.",
-        "Sync your breathing for 10 seconds while looking into each other’s eyes.",
-    ];
+export const PromptComponent = ({onClose, prompt}: PromptComponentProps) => {
 
-    const [currentPrompt, setCurrentPrompt] = useState("");
+    // const [currentPrompt, setCurrentPrompt] = useState("");
     const [timeLeft, setTimeLeft] = useState(30); // Rest time in seconds
 
     useEffect(() => {
         // Set a random prompt when the component loads
-        setCurrentPrompt(prompts[Math.floor(Math.random() * prompts.length)]);
+        // setCurrentPrompt(prompts[Math.floor(Math.random() * prompts.length)]);
 
         // Countdown logic
         const timer = setInterval(() => {
@@ -34,7 +28,7 @@ export const PromptComponent = ({onClose}: PromptComponentProps) => {
         }, 1000);
 
         return () => clearInterval(timer); // Cleanup
-    }, []);
+    }, [onClose]);
 
     return (
         <div className={'prompt-container flex flex-col z-20'}>
@@ -51,7 +45,7 @@ export const PromptComponent = ({onClose}: PromptComponentProps) => {
             <div className={'prompt-outer'}>
                 <div className={'prompt-box'}>
                     <h1 className={'title'}>Take a Moment</h1>
-                    <p className={'prompt-text'}>{currentPrompt}</p>
+                    <p className={'prompt-text'}>{prompt}</p>
                     <p className={'timer-text'}>Resting for: {timeLeft} seconds</p>
                 </div>
             </div>

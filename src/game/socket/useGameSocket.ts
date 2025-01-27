@@ -3,6 +3,14 @@ import {useCallback, useEffect} from "react";
 import {useSocket} from "stare/game/socket/SocketProvider";
 import {Game, GameAction, GameEvent, GameStatus} from "stare/game/socket/types";
 
+const prompts = [
+    "Give silent compliments to each other in your mind while maintaining eye contact.",
+    "Think about one way you’ve supported each other recently and hold onto that feeling.",
+    "While staring, reflect on one thing you deeply appreciate about your partner. Share it later.",
+    "Recall a fun or meaningful memory you share and smile about it together.",
+    "Sync your breathing for 10 seconds while looking into each other’s eyes.",
+];
+
 export const useGameSocket = () => {
     const {socket, game, setGame} = useSocket();
     console.log("useGameSocket socket:", socket?.id, socket?.connected);
@@ -67,7 +75,9 @@ export const useGameSocket = () => {
                 challenge: game.challenge,
                 speed: 1,
                 error: null,
-                result: null
+                result: null,
+                prompt: null,
+                duration: 120
             })
             return;
         } else {
@@ -95,7 +105,8 @@ export const useGameSocket = () => {
                     score: Object.values(game.players)[0].score,
                     message: "Stare Game Sprint Ends"
                 },
-                status: GameStatus.finished
+                status: GameStatus.finished,
+                prompt: prompts[Math.floor(Math.random() * prompts.length)]
             })
             return;
         }

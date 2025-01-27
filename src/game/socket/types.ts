@@ -9,7 +9,10 @@ export interface Game {
     challenge: string | null;
     result: GameResult | null;
     status: GameStatus;
-    error: GameErrors | null;
+    error: string | null;
+    prompt: string | null;
+    duration: number | null;
+
 }
 
 export interface GameResult {
@@ -23,13 +26,6 @@ export enum GameStatus {
     joined = "joined",
     started = "started",
     finished = "finished",
-}
-
-export enum GameErrors {
-    gameFull = "gameFull",
-    notEnoughPlayers = "notEnoughPlayers",
-    gameNotFound = "gameNotFound",
-    alreadyStarted = "alreadyStarted",
 }
 
 export enum GameEvent {
