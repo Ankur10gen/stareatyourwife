@@ -24,21 +24,21 @@
     background-size: cover;
 }
 
-.title {
+.prompt-container .title {
     font-size: 28px;
     margin-bottom: 15px;
     color: #0000ff; /* Deep blue for focus */
     font-weight: bold;
 }
 
-.prompt-text {
+.prompt-container .prompt-text {
     font-size: 18px;
     color: #000000; /* Neutral dark gray for readability */
     margin-bottom: 20px;
     line-height: 1.6;
 }
 
-.timer-text {
+.prompt-container .timer-text {
     display: flex;
     justify-content: center;
     align-items: center;

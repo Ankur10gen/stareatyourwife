@@ -10,16 +10,23 @@ body {
 }
 
 .kindle-screen {
+    justify-content: center; /* Centers content horizontally */
+    align-items: center; /* Centers content vertically */
+    height: 100%;
+    background: url('../../../../public/background.jpeg') no-repeat center center fixed; /* Replace with your photo path */
+    background-size: cover; /* Ensures the image covers the screen */
+    position: relative;
+    color: rgb(255, 255, 255); /* Keeps the text color dark */
+}
+
+.kindle-screen-overlay {
     display: flex; /* Enables flexbox on the container */
     justify-content: center; /* Centers content horizontally */
     align-items: center; /* Centers content vertically */
     text-align: center;
     padding: 0 20px;
     height: 100%;
-    background: url('../../../../public/background.jpeg') no-repeat center center fixed; /* Replace with your photo path */
-    background-size: cover; /* Ensures the image covers the screen */
-    position: relative;
-    color: rgb(255, 255, 255); /* Keeps the text color dark */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
 }
 
 .kindle-screen::before {
@@ -36,22 +43,21 @@ body {
 .kindle-content {
     position: relative;
     z-index: 2; /* Ensures the text is above the overlay */
-    max-width: auto; /* Optional: limits text width for readability */
 }
 
-.title {
+.kindle-screen .title {
     font-size: 28px;
     font-weight: bold;
     margin-bottom: 20px;
 }
 
-.subtitle {
+.kindle-screen .subtitle {
     font-size: 20px;
     margin-bottom: 15px;
     color: rgb(255, 255, 255); /* Subtle gray for secondary text */
 }
 
-.info {
+.kindle-screen .info {
     font-size: 16px;
     line-height: 1.5;
     color: rgb(255, 255, 255);
@@ -60,13 +66,14 @@ body {
     /* font-weight: bold */
 }
 
-.upload-label {
+.kindle-screen .upload-label {
     display: inline-block;
     background-color: #ff9900; /* Warm Kindle-like orange */
     color: #fff;
     font-size: 16px;
     font-weight: bold;
     padding: 10px 20px;
+    margin-top: 20px;
     border-radius: 5px;
     cursor: pointer;
     text-align: center;
@@ -76,6 +83,31 @@ body {
 .upload-label:hover {
     background-color: #e68a00; /* Darker orange on hover */
 }
+
+/* Bounce effect triggered when isAnimationFinished is true */
+.bounce {
+    animation: bounceAnimation 1s ease;
+}
+
+/* Keyframes for bounce effect */
+@keyframes bounceAnimation {
+    0% {
+        transform: scale(1);
+    }
+    30% {
+        transform: scale(0.8);
+    }
+    50% {
+        transform: scale(1);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
 
 .upload-input {
     display: none; /* Hide the actual file input */

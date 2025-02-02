@@ -9,12 +9,10 @@ const Home2: React.FC = () => {
 
     return (
         <>
-            {
-                <BannerSection
-                    onImageUploaded={() => {
-                        router.push('/challenge');
-                    }}/>
-            }
+            <BannerSection
+                onImageUploaded={() => {
+                    router.push('/challenge');
+                }}/>
         </>
     );
 }

@@ -1,0 +1,19 @@
+.typing-container {
+    background-color: transparent;
+    color: lime;
+    font-family: "Courier New, monospace";
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    /*align-items: end;*/
+    height: 60vh;
+    width: 100%;
+    overflow: auto;
+    white-space: pre-wrap;
+}
+
+.typing-text {
+    white-space: pre-wrap;
+    word-break: break-word; /* Breaks long words */
+    text-align: left;
+}
