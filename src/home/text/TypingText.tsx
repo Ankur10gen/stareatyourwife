@@ -1,5 +1,6 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 import './TypingText.css'
+import '../banner/image-banner/ImageBanner.css'
 
 const missionText = [
     {text: "INITIALIZING STARE PROTOCOL...", delay: 500},
@@ -27,13 +28,33 @@ const TypingText = ({onFinish}: { onFinish: (isFinished: boolean) => void }) => 
     const [displayedText, setDisplayedText] = useState("");
     const [currentLine, setCurrentLine] = useState(0);
     const [currentChar, setCurrentChar] = useState(0);
-    const containerRef = useRef<HTMLDivElement>(null); // Ref for scrolling
+    const isDenied = sessionStorage.getItem("audio-permission") === "denied";
+    const [permission, setPermission] = useState<'enabled' | 'disabled' | 'denied'>(isDenied ? 'denied' : 'enabled');
     const audioRef = useRef<HTMLAudioElement | null>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    // Handle user permission to play audio
+    const enableAudio = useCallback(() => {
+        if (audioRef.current) {
+            audioRef.current.play().then(() => {
+                setPermission('denied');
+            }).catch(e => {
+                setPermission('denied');
+                console.log("Audio Play Blocked:", e)
+            });
+        }
+    }, []);
 
     useEffect(() => {
+        audioRef.current = new Audio("/safari_typing_text.mp3");
 
-        audioRef.current = new Audio('/typing_text.ogg');
-        audioRef.current.play().then(r => console.log(r)).catch(e => console.log(e));
+        // Try playing audio automatically
+        audioRef.current.play().then(() => {
+            setPermission('enabled');
+        }).catch(() => {
+            console.log("Audio Play Blocked");
+            setPermission('disabled'); // Show enable button
+        });
 
         return () => {
             if (audioRef.current) {
@@ -44,14 +65,15 @@ const TypingText = ({onFinish}: { onFinish: (isFinished: boolean) => void }) => 
     }, []);
 
     useEffect(() => {
+        if (permission === 'disabled')
+            return;
         if (currentLine < missionText.length) {
             if (currentChar < missionText[currentLine].text.length) {
                 setTimeout(() => {
                     setDisplayedText((prev) => prev + missionText[currentLine].text[currentChar]);
                     setCurrentChar((prev) => prev + 1);
-                }, 50); // Typing speed
+                }, 50);
             } else {
-                // Use line-specific delay
                 setTimeout(() => {
                     setDisplayedText((prev) => prev + "\n");
                     setCurrentLine((prev) => prev + 1);
@@ -59,9 +81,13 @@ const TypingText = ({onFinish}: { onFinish: (isFinished: boolean) => void }) => 
                 }, missionText[currentLine].delay);
             }
         } else {
+            if (audioRef.current) {
+                audioRef.current.pause();
+                audioRef.current.currentTime = 0;
+            }
             onFinish(true);
         }
-    }, [currentChar, currentLine, onFinish]);
+    }, [permission, currentChar, currentLine, onFinish]);
 
     useEffect(() => {
         if (containerRef.current) {
@@ -69,12 +95,36 @@ const TypingText = ({onFinish}: { onFinish: (isFinished: boolean) => void }) => 
         }
     }, [displayedText]);
 
+    function cancelPermissionRequest() {
+        sessionStorage.setItem("audio-permission", "denied");
+        setPermission('denied');
+    }
+
     return (
-        <>
-            <div ref={containerRef} className={"typing-container"}>
-                <pre className={"typing-text"}>{displayedText}</pre>
-            </div>
-        </>
+        <div className="typing-container">
+            {permission === 'disabled' && (
+                // <button className="enable-audio-btn" onClick={enableAudio}>Enable Sound 🔊</button>
+
+                <div className="dialog-overlay">
+                    <div className="dialog-box">
+                        <h3>🎵 Enable Audio for the Best Experience!</h3>
+                        <p style={{color: 'black'}}>
+                            Sound enhances the experience and keeps the text animation in sync.
+                            Click the button below to allow sound playback.
+                        </p>
+                        <div className={'flex justify-center'}>
+                            <button style={{marginRight: 24}}
+                                    onClick={() => cancelPermissionRequest()}
+                            >Cancel
+                            </button>
+                            <button onTouchStart={enableAudio} onClick={enableAudio}>Enable Sound 🔊</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+            <pre className="typing-text">{displayedText}</pre>
+        </div>
     );
 };
+
 export default TypingText;

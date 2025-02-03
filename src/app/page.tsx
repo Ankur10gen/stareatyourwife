@@ -1,3 +1,6 @@
-import Home2 from "stare/home/Home2";
+'use client'
+import dynamic from "next/dynamic";
+
+const Home2 = dynamic(() => import('stare/home/Home2'), {ssr: false});
 
 export default Home2
