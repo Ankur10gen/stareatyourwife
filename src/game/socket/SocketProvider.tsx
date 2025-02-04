@@ -23,7 +23,7 @@ export const SocketProvider: FC<{ children: ReactNode }> = ({children}) => {
         status: 'waiting' as GameStatus,
         error: null,
         prompt: null,
-        duration: 10,
+        duration: 120,
     });
 
     useEffect(() => {

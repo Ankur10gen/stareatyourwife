@@ -1,5 +1,5 @@
 const Leaderboard = () => {
-    const {isLoggedIn} = useAuth();
+    // const {isLoggedIn} = useAuth();
 }
 
 export default Leaderboard

@@ -17,6 +17,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
     title: "StareGame",
     description: "creating connections in a world that’s constantly pulling us apart",
+    keywords: "stare, stare game, eye contact, eye contact challenge, relationship games, relationship tips, mindfulness game, wife admiration",
 };
 
 export default function RootLayout({

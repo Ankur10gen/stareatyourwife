@@ -1,11 +1,10 @@
 'use client'
-import dynamic from "next/dynamic";
 
-const Leaderboard = dynamic(() => import('stare/leaderboard/Leaderboard'), {ssr: false});
+// const Leaderboard = dynamic(() => import('stare/leaderboard/Leaderboard'), {ssr: false});
 
 const Page = () => {
     return (
-        <Leaderboard/>
+        <div>Leaderboard</div>
     );
 }
 export default Page
