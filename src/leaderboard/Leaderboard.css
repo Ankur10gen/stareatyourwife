@@ -1,0 +1,35 @@
+.challenge-list {
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+}
+
+.challenge-list h3 {
+    margin-bottom: 20px;
+    font-size: 20px;
+    color: #7d1313;
+}
+
+.challenge-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.challenge-list .challenge-item {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.challenge-list .challenge-item:last-child {
+    border-bottom: none;
+}
+
+.challenge-list p {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.error-message {
+    color: red;
+    font-weight: bold;
+}
